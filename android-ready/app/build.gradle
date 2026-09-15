@@ -1,6 +1,0 @@
-plugins { id 'com.android.application' }
-
-android { namespace 'com.yangpyeong.accounting'; compileSdk 35
-    defaultConfig { applicationId 'com.yangpyeong.accounting'; minSdk 23; targetSdk 35; versionCode 13; versionName '13.0' }
-    buildTypes { release { minifyEnabled false; shrinkResources false; proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' } }
-}
