@@ -1,6 +1,6 @@
 # 양평동교회 회계 V13
 
-V13은 V12를 기반으로 Android 실제 APK 빌드를 쉽게 수행할 수 있도록 Android 프로젝트와 GitHub Actions를 정리한 버전입니다.
+V13은 V13를 기반으로 Android 실제 APK 빌드를 쉽게 수행할 수 있도록 Android 프로젝트와 GitHub Actions를 정리한 버전입니다.
 
 ## 포함
 - 개인 모바일 회계

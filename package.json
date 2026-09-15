@@ -1,8 +1,8 @@
 {
-  "name": "yangpyeong-accounting-v12",
-  "version": "12.0.0",
+  "name": "yangpyeong-accounting-v13-personal",
+  "version": "13.0.0",
   "private": true,
-  "description": "양평동교회 회계 V12 - 휴대폰 설치준비·OCR·회계검증·결산관리",
+  "description": "양평동교회 회계 V13 개인 모바일용",
   "scripts": {
     "sync": "npx cap sync",
     "android": "npx cap open android",
