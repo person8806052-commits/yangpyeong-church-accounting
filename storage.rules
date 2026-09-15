@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function role() { return signedIn() && firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role; }
+    function canWrite() { return role() in ['관리자','위원장','부장','회계']; }
+    match /churches/{churchId}/receipts/{uid}/{fileName} {
+      allow read: if signedIn();
+      allow write: if canWrite() && request.resource.size < 10 * 1024 * 1024 && request.resource.contentType.matches('image/.*');
+      allow delete: if role() == '관리자';
+    }
+  }
+}

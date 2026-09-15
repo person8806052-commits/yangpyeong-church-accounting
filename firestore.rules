@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function role() { return signedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role; }
+    function isAdmin() { return role() == '관리자'; }
+    function isManager() { return role() in ['관리자','부장']; }
+    function isChair() { return role() in ['관리자','위원장']; }
+    function canWrite() { return role() in ['관리자','위원장','부장','회계']; }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if signedIn() && request.auth.uid == uid;
+      allow update: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+    match /churches/{churchId} {
+      allow read: if signedIn();
+      allow create, update: if isAdmin();
+      allow delete: if false;
+      match /settings/{docId} { allow read: if signedIn(); allow write: if isAdmin(); }
+      match /accounts/{docId} { allow read: if signedIn(); allow create, update: if canWrite(); allow delete: if isAdmin(); }
+      match /transactions/{docId} {
+        allow read: if signedIn();
+        allow create: if canWrite();
+        allow update: if canWrite() || (isManager() && request.resource.data.approval == '부장승인') || (isChair() && request.resource.data.approval in ['위원장승인','결재완료']);
+        allow delete: if isAdmin();
+      }
+      match /audit/{docId} { allow read: if isAdmin(); allow create: if signedIn(); allow update, delete: if false; }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "yangpyeong-accounting-v12",
+  "version": "12.0.0",
+  "private": true,
+  "description": "양평동교회 회계 V12 - 휴대폰 설치준비·OCR·회계검증·결산관리",
+  "scripts": {
+    "sync": "npx cap sync",
+    "android": "npx cap open android",
+    "ios": "npx cap open ios",
+    "web": "npx cap serve"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/ios": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}
